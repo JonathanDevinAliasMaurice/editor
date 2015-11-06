@@ -118,8 +118,9 @@ public class GroupTest extends TestCase {
         g2.add(r);
 
         Group g_copy = g2.copy();
-
+        System.out.println(g2.toJson());
         assertEquals(g_copy.size(), 3);
         assertNotSame(g_copy.getID(), g2.getID());
+
     }
 }
