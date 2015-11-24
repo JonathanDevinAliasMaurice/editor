@@ -10,7 +10,7 @@ public  class Select  {
 
         for (GraphicsObject object : layer.get()) {
             if (object.isClosed(pt, distance)) {
-                list.add(object);
+                list.addAll(object.get_element());
             }
         }
         return list;

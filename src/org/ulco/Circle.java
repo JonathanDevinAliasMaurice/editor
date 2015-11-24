@@ -1,5 +1,7 @@
 package org.ulco;
 
+import java.util.Vector;
+
 public class Circle extends GraphicsObject {
     public Circle(Point center, double radius) {
         this.m_center = center;
@@ -37,6 +39,14 @@ public class Circle extends GraphicsObject {
         return "circle[" + m_center.toString() + "," + m_radius + "]";
     }
 
+    public int size(){
+        return 1;
+    }
+    public Vector<GraphicsObject> get_element(){
+        Vector<GraphicsObject> list= new Vector<GraphicsObject>();
+        list.add(this);
+        return list;
+    }
     private final Point m_center;
     private final double m_radius;
 }

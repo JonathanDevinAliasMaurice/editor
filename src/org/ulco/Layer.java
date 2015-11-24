@@ -5,7 +5,7 @@ import java.util.Vector;
 public class Layer {
     public Layer() {
         m_list = new Vector<GraphicsObject>();
-        m_ID = ID.currentID();
+        m_ID = ID.getInstance().New_ID();
     }
 
     public Layer(String json) {

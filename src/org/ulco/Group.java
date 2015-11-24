@@ -10,7 +10,7 @@ public class Group extends GraphicsObject  {
     public Group() {
 
         m_objectList = new Vector<GraphicsObject>();
-        m_ID = ID.currentID();
+        m_ID = ID.getInstance().New_ID();
     }
 
     public Group(String json) {
@@ -27,8 +27,30 @@ public class Group extends GraphicsObject  {
     public void add(Object object) {
         m_objectList.add((GraphicsObject)object);
     }
-    public boolean isClosed(Point pt, double distance) {return true;}
 
+
+    public boolean isClosed(Point pt, double distance) {
+        boolean closed=true;
+        if(this.size()==0){
+            closed=false;
+        }else {
+            for (GraphicsObject o : m_objectList) {
+                if (o.isClosed(pt, distance) == false) {
+                    closed = false;
+                }
+            }
+        }
+        return closed;
+    }
+
+
+    public Vector<GraphicsObject> get_element(){
+        Vector<GraphicsObject> list= new Vector<GraphicsObject>();
+        for (GraphicsObject o : m_objectList) {
+            list.add(o);
+        }
+        return list;
+    }
 
     public Group copy() {
         Group g = new Group();
@@ -115,14 +137,12 @@ public class Group extends GraphicsObject  {
     }
 
     public int size() {
-        int size = m_objectList.size();
+        int size = 0;
 
         for (int i = 0; i < m_objectList.size(); ++i) {
             GraphicsObject element = m_objectList.elementAt(i);
-            if(element instanceof Group){
-                size += ((Group)element).size()-1;
+                size += element.size();
             }
-        }
         return size;
     }
 

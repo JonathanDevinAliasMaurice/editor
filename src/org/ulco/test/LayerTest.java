@@ -6,7 +6,7 @@ import org.ulco.*;
 public class LayerTest extends TestCase {
     public void testType() throws Exception {
         Document document = new Document();
-        int oldID = ID.oldID();
+        int oldID =ID.getInstance().ID;
         Layer layer = document.createLayer();
 
         layer.add(new Square(new Point(2, 8), 10));
@@ -43,5 +43,21 @@ public class LayerTest extends TestCase {
         System.out.println(g2.size());
         System.out.println(l.getObjectNumber());
         assertEquals(l.getObjectNumber(), 3);
+    }
+
+    public void testSelect() throws Exception {
+        Document document = new Document();
+        Layer layer = document.createLayer();
+        Circle c = new Circle(new Point(2, 8), 10);
+        Group g = new Group();
+        g.add(c);
+        layer.add(g);
+
+
+        System.out.println(g.isClosed(new Point(1, 1), 8));
+        assertTrue(layer.select(new Point(1, 1), 8).size() == 1);
+        System.out.println(layer.select(new Point(1, 1), 8).firstElement().getID());
+        System.out.println(c.getID());
+        assertTrue(layer.select(new Point(1, 1), 8).firstElement().getID() == c.getID());
     }
 }

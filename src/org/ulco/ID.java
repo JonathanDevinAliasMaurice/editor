@@ -1,14 +1,22 @@
 package org.ulco;
 
-public class ID {
-    static private int ID = 0;
+public class ID
+{
+    static public int ID = 0;
 
-    public static int currentID(){
-        ID++;
-        return ID;
+    /** Constructeur privé */
+    private ID()
+    {}
+
+    /** Instance unique pré-initialisée */
+    private static ID INSTANCE = new ID();
+
+    /** Point d'accès pour l'instance unique du singleton */
+    public static ID getInstance()
+    {
+        return INSTANCE;
     }
-    public static int oldID(){
-
-        return ID;
+    public int New_ID(){
+        return ++ID;
     }
 }
