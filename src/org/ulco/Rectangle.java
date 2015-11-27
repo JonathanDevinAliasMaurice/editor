@@ -3,6 +3,10 @@ package org.ulco;
 import java.util.Vector;
 
 public class Rectangle extends GraphicsObject {
+
+    protected Rectangle(){
+
+    }
     public Rectangle(Point center, double height, double width) {
         this.m_origin = center;
         this.m_height = height;
@@ -30,8 +34,7 @@ public class Rectangle extends GraphicsObject {
     public boolean isClosed(Point pt, double distance) {
         Point center = new Point(m_origin.getX() + m_width / 2, m_origin.getY() + m_height / 2);
 
-        return Math.sqrt((center.getX() - pt.getX()) * (center.getX() - pt.getX()) +
-                ((center.getY() - pt.getY()) * (center.getY() - pt.getY()))) <= distance;
+        return this.resultat(pt,distance,center);
     }
 
     void move(Point delta) { m_origin.move(delta); }
@@ -54,7 +57,7 @@ public class Rectangle extends GraphicsObject {
         return list;
     }
 
-    private final Point m_origin;
-    private final double m_height;
-    private final double m_width;
+    protected  Point m_origin;
+    protected  double m_height;
+    protected  double m_width;
 }

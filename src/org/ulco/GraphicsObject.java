@@ -25,5 +25,10 @@ abstract public class GraphicsObject {
 
     abstract public Vector<GraphicsObject> get_element();
 
+    public boolean resultat(Point pt, double distance,Point center){
+        return Math.sqrt((center.getX() - pt.getX()) * (center.getX() - pt.getX()) +
+                ((center.getY() - pt.getY()) * (center.getY() - pt.getY()))) <= distance;
+    }
+
     private int m_ID;
 }

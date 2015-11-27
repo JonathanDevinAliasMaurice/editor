@@ -20,8 +20,8 @@ public class Group extends GraphicsObject  {
         int groupsIndex =str.indexOf("groups");
         int endIndex = str.lastIndexOf("}");
 
-        parseObjects(str.substring(objectsIndex + 9, groupsIndex-2));
-        parseGroups(str.substring(groupsIndex+8,endIndex - 1));
+        Search.parseObjects(str.substring(objectsIndex + 9, groupsIndex - 2), m_objectList);
+       Search.parseObjects(str.substring(groupsIndex + 8, endIndex - 1),m_objectList);
     }
 
     public void add(Object object) {
@@ -73,68 +73,11 @@ public class Group extends GraphicsObject  {
         }
     }
 
-    private int searchSeparator(String str) {
-        int index = 0;
-        int level = 0;
-        boolean found = false;
 
-        while (!found && index < str.length()) {
-            if (str.charAt(index) == '{') {
-                ++level;
-                ++index;
-            } else if (str.charAt(index) == '}') {
-                --level;
-                ++index;
-            } else if (str.charAt(index) == ',' && level == 0) {
-                found = true;
-            } else {
-                ++index;
-            }
-        }
-        if (found) {
-            return index;
-        } else {
-            return -1;
-        }
-    }
 
-    private void parseGroups(String groupsStr) {
-        while (!groupsStr.isEmpty()) {
-            int separatorIndex = searchSeparator(groupsStr);
-            String groupStr;
 
-            if (separatorIndex == -1) {
-                groupStr = groupsStr;
-            } else {
-                groupStr = groupsStr.substring(0, separatorIndex);
-            }
-            m_objectList.add(JSON.parse(groupStr));
-            if (separatorIndex == -1) {
-                groupsStr = "";
-            } else {
-                groupsStr = groupsStr.substring(separatorIndex + 1);
-            }
-        }
-    }
 
-    private void parseObjects(String objectsStr) {
-        while (!objectsStr.isEmpty()) {
-            int separatorIndex = searchSeparator(objectsStr);
-            String objectStr;
 
-            if (separatorIndex == -1) {
-                objectStr = objectsStr;
-            } else {
-                objectStr = objectsStr.substring(0, separatorIndex);
-            }
-            m_objectList.add(JSON.parse(objectStr));
-            if (separatorIndex == -1) {
-                objectsStr = "";
-            } else {
-                objectsStr = objectsStr.substring(separatorIndex + 1);
-            }
-        }
-    }
 
     public int size() {
         int size = 0;
